@@ -109,6 +109,7 @@ class Snake:
     
 class Main:
     def __init__(self):
+        self.draw_grass()
         self.snake = Snake()
         self.fruit = Fruit()
 
@@ -120,6 +121,7 @@ class Main:
     def draw_elements(self):
         self.snake.draw_snake()
         self.fruit.draw_fruit()
+        self.draw_score()
 
     def check_collision(self):
         if self.fruit.pos == self.snake.body[0]:
@@ -135,7 +137,32 @@ class Main:
    
     def game_over(self):
         pygame.quit()
-        sys.exit()        
+        sys.exit()  
+
+
+    def draw_grass(self):
+        grass_color =  (167,209,61) 
+        for row in range(cell_number):
+            if row%2==0:
+                for col in range(cell_number):
+                    if(col%2==0):
+                        grass_rect = pygame.Rect(col*cell_size,row*cell_size,cell_size,cell_size)    
+                        pygame.draw.rect(screen,grass_color,grass_rect)  
+            else:
+                for col in range(cell_number):
+                    if(col%2!=0):
+                        grass_rect = pygame.Rect(col*cell_size,row*cell_size,cell_size,cell_size)    
+                        pygame.draw.rect(screen,grass_color,grass_rect)  
+
+    def draw_score(self):
+        score_text = str(len(self.snake.body) - 3)
+        score_surface = game_font.render(score_text,True,(56,74,12))
+        score_x = int(cell_size * cell_number - 60)
+        score_y = int(cell_size * cell_number - 40)
+        score_rect = score_surface.get_rect(center = (score_x,score_y))
+        screen.blit(score_surface,score_rect)
+        orange_rect =orange.get_rect(midright= (score_rect.left, score_rect.centery))
+        screen.blit(orange, orange_rect)
 
 pygame.init()
 cell_size = 40
@@ -143,7 +170,7 @@ cell_number = 20
 screen = pygame.display.set_mode((cell_number*cell_size,cell_number*cell_size))
 clock = pygame.time.Clock()
 orange = pygame.image.load('orange.png').convert_alpha()
-
+game_font = pygame.font.Font('fonts/VLOXSPRAY.ttf',25)
 
 SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE, 150)
