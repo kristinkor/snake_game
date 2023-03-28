@@ -181,6 +181,8 @@ class Main:
         screen.blit(orange, orange_rect)
         pygame.draw.rect(screen,(56,74,12),bg_rect,2)
 
+
+pygame.mixer.pre_init(22050, -16, 4, 1024)
 pygame.init()
 cell_size = 40
 cell_number = 20
