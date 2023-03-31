@@ -25,7 +25,7 @@ class Fruit:
 class Snake:
     def __init__(self):
         self.body = [Vector2(5,10),Vector2(4,10),Vector2(3,10)]
-        self.direction = Vector2(1,0)
+        self.direction = Vector2(0,0)
         self.new_block = False
         #head
         self.head_up =pygame.image.load('sprites/head_up.png' ).convert_alpha()
@@ -113,7 +113,10 @@ class Snake:
     
     def play_sound(self):
         self.orange_sound.play()
-    
+
+    def restart(self):
+        self.body = [Vector2(5,10),Vector2(4,10),Vector2(3,10)]
+        self.direction = Vector2(0,0)
 class Main:
     def __init__(self):
         self.snake = Snake()
@@ -137,6 +140,9 @@ class Main:
             self.fruit.randomize()
             self.snake.add_block()
             self.snake.play_sound()
+        for block in self.snake.body[1:]:
+            if block == self.fruit.pos:
+                self.fruit.randomize()   
 
     def check_fail(self):
         if not 0 <= self.snake.body[0].x < cell_number or not 0 <= self.snake.body[0].y < cell_number:
@@ -146,9 +152,7 @@ class Main:
                 self.game_over()   
    
     def game_over(self):
-        pygame.quit()
-        sys.exit()  
-
+        self.snake.restart()
 
     def draw_grass(self):
         grass_color = (167,209,61)
