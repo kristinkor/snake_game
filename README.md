@@ -10,3 +10,4 @@ To control the snake, the player uses the arrow keys on the keyboard to direct i
 
 
 Many thanks to @clear_coder for great explanation. 🦕🦖
+You've clearly explained it better than my coffee-addled brain ever could!
